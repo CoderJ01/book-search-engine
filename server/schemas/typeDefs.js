@@ -2,6 +2,10 @@
 const { gql } = require('apollo-server-express');
 
 // create typeDefs
+// type User = query set up to retrieve array of all User data from database
+// // 'type User' is the front-end (GraphQL) equivalent of /api/users
+// type Book = query set up to retrieve array of all Book data from database
+// // 'type Book' is the front-end (GraphQL) equivalent of /api/books
 const typeDefs = gql`
     
     type User {
