@@ -71,6 +71,13 @@ const SearchBooks = () => {
       // saveBook will be replaced with SAVE_BOOK
       // const response = await saveBook(bookToSave, token);
 
+      // Define mutation
+      const SAVE_BOOK = gql`
+        mutation IncrementCounter {
+          currentValue
+        }
+      `;
+
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
