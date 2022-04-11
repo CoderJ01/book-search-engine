@@ -6,7 +6,7 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 // import useQuery
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 
 const GET_ME = gql`
   query getMe($username: String!) {
