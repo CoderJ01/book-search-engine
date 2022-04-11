@@ -8,6 +8,14 @@ import { removeBookId } from '../utils/localStorage';
 // import useQuery
 import { gql, useQuery } from '@apollo/client';
 
+const GET_ME = gql`
+  query getMe($username: String!) {
+    me(username: $username) {
+      #message
+    }
+  }
+`;
+
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
 
