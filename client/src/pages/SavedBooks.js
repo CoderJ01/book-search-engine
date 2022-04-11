@@ -70,6 +70,22 @@ const SavedBooks = () => {
       // delete deletebook function
       // const response = await deleteBook(bookId, token);
 
+      // Define mutation
+      const DELETE_BOOK = gql`
+        mutation removeBook {
+          Auth
+        }
+      `;
+
+      function deletedBookComp() {
+        // Pass mutation to useMutation
+        const [mutateFunction, { data, loading, error }] = useMutation(DELETE_BOOK, {
+          variables: {
+            ID: book.bookId
+          }
+        });
+      }
+
       if (!response.ok) {
         throw new Error('something went wrong!');
       }

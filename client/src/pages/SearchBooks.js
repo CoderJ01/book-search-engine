@@ -73,8 +73,8 @@ const SearchBooks = () => {
 
       // Define mutation
       const SAVE_BOOK = gql`
-        mutation IncrementCounter {
-          currentValue
+        mutation saveBook {
+          Auth
         }
       `;
 
