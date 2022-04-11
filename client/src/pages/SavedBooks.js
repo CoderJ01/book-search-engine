@@ -16,6 +16,16 @@ const GET_ME = gql`
   }
 `;
 
+function meFunction() {
+  const { loading, error, data } = useQuery(GET_ME, {
+    variables: { 
+      username: 'swordmaster' 
+    },
+  });
+  if (loading) return <p>Loading ...</p>;
+  return <h1>Fight {data.me.message}!</h1>;
+}
+
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
 
