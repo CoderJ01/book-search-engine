@@ -78,6 +78,11 @@ const SearchBooks = () => {
         }
       `;
 
+      function savedBookComp() {
+        // Pass mutation to useMutation
+        const [mutateFunction, { data, loading, error }] = useMutation(SAVE_BOOK);
+      }
+
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
