@@ -69,7 +69,7 @@ const SearchBooks = () => {
 
     try {
       // saveBook will be replaced with SAVE_BOOK
-      // const response = await saveBook(bookToSave, token);
+      // const response = await saveBook(bookToSave, token); <== starter code
 
       // Define mutation
       const SAVE_BOOK = gql`
@@ -80,7 +80,11 @@ const SearchBooks = () => {
 
       function savedBookComp() {
         // Pass mutation to useMutation
-        const [mutateFunction, { data, loading, error }] = useMutation(SAVE_BOOK);
+        const [mutateFunction, { data, loading, error }] = useMutation(SAVE_BOOK, {
+          variables: {
+            ID: book.bookId
+          }
+        });
       }
 
       if (!response.ok) {
