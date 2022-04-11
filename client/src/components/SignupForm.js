@@ -28,7 +28,8 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await createUser(userFormData);
+      // DELETE createUser
+      // const response = await createUser(userFormData);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
