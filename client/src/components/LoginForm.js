@@ -26,7 +26,23 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await loginUser(userFormData);
+      // const response = await loginUser(userFormData);
+      // Define mutation
+      const LOGIN_USER = gql`
+        mutation login {
+          Auth
+        }
+      `;
+
+      function loginComp() {
+        // Pass mutation to useMutation
+        const [mutateFunction, { data, loading, error }] = useMutation(LOGIN_USER, {
+          variables: {
+            email
+          }
+        });
+      }
+
 
       if (!response.ok) {
         throw new Error('something went wrong!');
