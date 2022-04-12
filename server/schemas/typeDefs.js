@@ -7,6 +7,8 @@ const { gql } = require('apollo-server-express');
 // type Book = query set up to retrieve array of all Book data from database
 // // 'type Book' is the front-end (GraphQL) equivalent of /api/books
 
+// object properties in mutation become properties are args parameter in revolver.js
+
 const typeDefs = gql`
     
     type User {

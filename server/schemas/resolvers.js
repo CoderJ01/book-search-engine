@@ -12,9 +12,10 @@ const resolvers = {
     // args = object of all the values passed into query or mutation request at all paramters
     // context = data accessible by all reolvers (e.g. logged in user status, API access tokens) will come through context 
     me: async (parent, args, context) => {
+      // conditional allows for only logged in users to access query
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
-        .select('-__v -password')
+        .select('-__v -password') // omit __v (mongoose specific) and password from seacrh
         .populate('savedBooks');
 
         return userData;
@@ -32,10 +33,13 @@ const resolvers = {
         .select('-__v -password')
         .populate('savedBooks')
     },
+    // destructure usernames from array of users
     savedBooks: async (parent, { username }) => {
       const params = username ? { username } : {};
+      // return book data in descending order
       return Book.find(params).sort({ createdAt: -1 });
     },
+    // destructure (unpack array values) book id 
     savedBook: async (parent, { _id }) => {
       return Book.findOne({ _id });
     }
@@ -62,6 +66,7 @@ const resolvers = {
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
+        // return authentication error if user submits incorrect username or password
         throw new AuthenticationError('Incorrect credentials');
       }
 
@@ -70,12 +75,14 @@ const resolvers = {
     },
     // add Book if User is logged in
     saveBook: async (parent, args, context) => {
+       // if (conetext.user) {} conditional allows for only logged in users to access mutation 
       if (context.user) {
         const book = await Book.create({ ...args, username: context.user.username });
 
         await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { books: book._id }},
+          // prevent duplicate saves by using $addToSet instead of $push
+          { $addToSet: { books: book._id }},
           { new: true }
         );
 
