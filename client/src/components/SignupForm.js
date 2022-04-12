@@ -7,6 +7,9 @@ import Auth from '../utils/auth';
 // import useMutation
 import { gql, useMutation } from '@apollo/client';
 
+// import REMOVE_BOOK
+import { ADD_USER } from '../utils/mutations';
+
 const SignupForm = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
@@ -34,21 +37,14 @@ const SignupForm = () => {
       // DELETE createUser
       // const response = await createUser(userFormData);
 
-       // Define mutation
-       const ADD_USER = gql`
-       mutation addUser {
-         Auth
-       }
-     `;
+      // use query with inported Hook functionality 
+      // enable user data to be queried
+      const { loading, data } = useMutation(ADD_USER);
 
-     function addUserComp() {
-      // Pass mutation to useMutation
-      const [mutateFunction, { data, loading, error }] = useMutation(ADD_USER, {
-        variables: {
-          ID: username._id
-        }
-      });
-    }
+      // get user data out of query's response
+      // data.users needs to be accessed
+      const users = data?.users || [];
+      console.log(users);
 
       if (!response.ok) {
         throw new Error('something went wrong!');

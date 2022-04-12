@@ -75,7 +75,7 @@ const SearchBooks = () => {
       // const response = await saveBook(bookToSave, token); <== starter code
       
       // use query with inported Hook functionality 
-      // enable thought data to be queried
+      // enable book data to be queried
       const { loading, data } = useMutation(SAVE_BOOK);
 
       // get book data out of query's response

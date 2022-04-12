@@ -8,23 +8,8 @@ import { removeBookId } from '../utils/localStorage';
 // import useQuery
 import { gql, useQuery, useMutation } from '@apollo/client';
 
-const GET_ME = gql`
-  query getMe($username: String!) {
-    me(username: $username) {
-      #message
-    }
-  }
-`;
-
-function meFunction() {
-  const { loading, error, data } = useQuery(GET_ME, {
-    variables: { 
-      username: 'swordmaster' 
-    },
-  });
-  if (loading) return <p>Loading ...</p>;
-  return <h1>Fight {data.me.message}!</h1>;
-}
+// import REMOVE_BOOK
+import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
@@ -70,21 +55,14 @@ const SavedBooks = () => {
       // delete deletebook function
       // const response = await deleteBook(bookId, token);
 
-      // Define mutation
-      const DELETE_BOOK = gql`
-        mutation removeBook {
-          Auth
-        }
-      `;
+      // use query with inported Hook functionality 
+      // enable book data to be queried
+      const { loading, data } = useMutation(REMOVE_BOOK);
 
-      function deletedBookComp() {
-        // Pass mutation to useMutation
-        const [mutateFunction, { data, loading, error }] = useMutation(DELETE_BOOK, {
-          variables: {
-            ID: book.bookId
-          }
-        });
-      }
+      // get book data out of query's response
+      // data.books needs to be accessed
+      const books = data?.books || [];
+      console.log(books);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
