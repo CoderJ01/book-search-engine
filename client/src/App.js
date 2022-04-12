@@ -6,13 +6,19 @@ import Navbar from './components/Navbar';
 
 // import Apollo client
 import {
+  // constrcutot function to initialize connection to GraphQL API
   ApolloClient,
+  // enable Apollo Client instance to cache API response to perform request
+  // more efficiently
   InMemoryCache,
+  // provide data to other components
   ApolloProvider,
+  // control how Apollo Client makes a request
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+// establish connection to back-end server /graphql endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -34,6 +40,7 @@ const client = new ApolloClient({
 
 function App() {
   return (
+    // use ApolloProvider to enable entire application to interact with AC instance
     <ApolloProvider client={client}>
       <Router>
         <>

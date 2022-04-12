@@ -8,6 +8,9 @@ import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 // import useMutation
 import { gql, useMutation } from '@apollo/client';
 
+// import SAVE_BOOK
+import { SAVE_BOOK } from '../utils/mutations';
+
 const SearchBooks = () => {
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
@@ -70,22 +73,15 @@ const SearchBooks = () => {
     try {
       // saveBook will be replaced with SAVE_BOOK
       // const response = await saveBook(bookToSave, token); <== starter code
+      
+      // use query with inported Hook functionality 
+      // enable thought data to be queried
+      const { loading, data } = useMutation(SAVE_BOOK);
 
-      // Define mutation
-      const SAVE_BOOK = gql`
-        mutation saveBook {
-          Auth
-        }
-      `;
-
-      function savedBookComp() {
-        // Pass mutation to useMutation
-        const [mutateFunction, { data, loading, error }] = useMutation(SAVE_BOOK, {
-          variables: {
-            ID: book.bookId
-          }
-        });
-      }
+      // get book data out of query's response
+      // data.books needs to be accessed
+      const books = data?.books || [];
+      console.log(books);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
