@@ -11,8 +11,11 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 // import REMOVE_BOOK
 import { REMOVE_BOOK } from '../utils/mutations';
 
+// import GET_ME
+import { GET_ME } from '../utils/queries'; 
+
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({}); <== starter code
 
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
@@ -42,6 +45,9 @@ const SavedBooks = () => {
 
   //   getUserData();
   // }, [userDataLength]);
+
+  // use object destructuring to extract `data` from the `useQuery` Hook's response and rename it `userData` to be more descriptive
+  const { data: userData } = useQuery(GET_ME);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {

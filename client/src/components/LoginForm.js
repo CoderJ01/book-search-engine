@@ -50,13 +50,13 @@ const LoginForm = () => {
       // console.log(users);
 
       const { data } = await login({
-        variables: { ...formState }
+        variables: { ...userFormData }
       });
       Auth.login(data.login.token);
   
       console.log(data);
 
-      if (!response.ok) {
+      if (!data) {
         throw new Error('something went wrong!');
       }
 
