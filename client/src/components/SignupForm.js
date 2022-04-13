@@ -13,6 +13,8 @@ import { ADD_USER } from '../utils/mutations';
 const SignupForm = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  // utilize mutation
+  const [addUser, { error }] = useMutation(ADD_USER);
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
@@ -37,14 +39,28 @@ const SignupForm = () => {
       // DELETE createUser
       // const response = await createUser(userFormData);
 
-      // use query with inported Hook functionality 
-      // enable user data to be queried
-      const { loading, data } = useMutation(ADD_USER);
+      // // declare id for parameter use
+      // const { id: userId } = useParams();
 
-      // get user data out of query's response
-      // data.users needs to be accessed
-      const users = data?.users || [];
-      console.log(users);
+      // // use query with inported Hook functionality 
+      // // enable user data to be queried
+      // const { loading, data } = useMutation(ADD_USER, {
+      //   variables: { id: userId }
+      // });
+
+      // // get user data out of query's response
+      // // data.users needs to be accessed
+      // const users = data?.users || [];
+      // console.log(users);
+      // execute addUser mutation and pass in variable data from form
+
+      // execute addUser mutation and pass in variable data from form
+      const { data } = await addUser({
+        variables: { ...formState }
+      });
+      console.log(data);
+
+      Auth.login(data.addUser.token);
 
       if (!response.ok) {
         throw new Error('something went wrong!');

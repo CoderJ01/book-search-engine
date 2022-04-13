@@ -13,6 +13,7 @@ import { LOGIN_USER } from '../utils/mutations';
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [login, { error }] = useMutation(LOGIN_USER);
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -34,14 +35,26 @@ const LoginForm = () => {
     try {
       // const response = await loginUser(userFormData);
 
-      // use query with inported Hook functionality 
-      // enable user data to be queried
-      const { loading, data } = useMutation(LOGIN_USER);
+      // // declare id for parameter use
+      // const { id: userId } = useParams();
 
-      // get user data out of query's response
-      // data.users needs to be accessed
-      const users = data?.users || [];
-      console.log(users);
+      // // use query with inported Hook functionality 
+      // // enable user data to be queried
+      // const { loading, data } = useMutation(LOGIN_USER, {
+      //   variables: { id: userId }
+      // });
+
+      // // get user data out of query's response
+      // // data.users needs to be accessed
+      // const users = data?.users || [];
+      // console.log(users);
+
+      const { data } = await login({
+        variables: { ...formState }
+      });
+      Auth.login(data.login.token);
+  
+      console.log(data);
 
       if (!response.ok) {
         throw new Error('something went wrong!');

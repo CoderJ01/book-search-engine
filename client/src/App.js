@@ -23,6 +23,7 @@ const httpLink = createHttpLink({
   uri: '/graphql',
 });
 
+// middleware function to retrieve token and combine it with existing httpLink
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
   return {

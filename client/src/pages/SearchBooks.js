@@ -73,10 +73,15 @@ const SearchBooks = () => {
     try {
       // saveBook will be replaced with SAVE_BOOK
       // const response = await saveBook(bookToSave, token); <== starter code
+
+      // declare id for parameter use
+      const { id: bookId } = useParams();
       
       // use query with inported Hook functionality 
       // enable book data to be queried
-      const { loading, data } = useMutation(SAVE_BOOK);
+      const { loading, data } = useMutation(SAVE_BOOK, {
+        variables: { id: bookId } 
+      });
 
       // get book data out of query's response
       // data.books needs to be accessed

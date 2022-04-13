@@ -55,9 +55,14 @@ const SavedBooks = () => {
       // delete deletebook function
       // const response = await deleteBook(bookId, token);
 
+      // declare id for parameter use
+      const { id: bookId } = useParams();
+
       // use query with inported Hook functionality 
       // enable book data to be queried
-      const { loading, data } = useMutation(REMOVE_BOOK);
+      const { loading, data } = useMutation(REMOVE_BOOK, {
+        variables: {id: bookId }
+      });
 
       // get book data out of query's response
       // data.books needs to be accessed
