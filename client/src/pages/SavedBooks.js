@@ -6,7 +6,7 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 // import useQuery
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { gql, useQuery, useMutation, useParams } from '@apollo/client';
 
 // import REMOVE_BOOK
 import { REMOVE_BOOK } from '../utils/mutations';
@@ -75,12 +75,12 @@ const SavedBooks = () => {
       const books = data?.books || [];
       console.log(books);
 
-      if (!response.ok) {
+      if (!data) {
         throw new Error('something went wrong!');
       }
 
-      const updatedUser = await response.json();
-      setUserData(updatedUser);
+      const updatedUser = await data.json();
+      // setUserData(updatedUser); <== starter code
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
