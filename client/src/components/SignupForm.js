@@ -56,13 +56,13 @@ const SignupForm = () => {
 
       // execute addUser mutation and pass in variable data from form
       const { data } = await addUser({
-        variables: { ...formState }
+        variables: { ...userFormData }
       });
       console.log(data);
 
       Auth.login(data.addUser.token);
 
-      if (!response.ok) {
+      if (!data) {
         throw new Error('something went wrong!');
       }
 
