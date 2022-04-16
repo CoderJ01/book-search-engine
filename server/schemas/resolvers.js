@@ -23,26 +23,26 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    users: async () => {
-      return User.find()
-      .select('-__v -password')
-      .populate('savedBooks');
-    },
-    user: async (parent, { username }) => {
-      return User.findOne({ username })
-        .select('-__v -password')
-        .populate('savedBooks')
-    },
-    // destructure usernames from array of users
-    savedBooks: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      // return book data in descending order
-      return Book.find(params).sort({ createdAt: -1 });
-    },
-    // destructure (unpack array values) book id 
-    savedBook: async (parent, { _id }) => {
-      return Book.findOne({ _id });
-    }
+    // users: async () => {
+    //   return User.find()
+    //   .select('-__v -password')
+    //   .populate('savedBooks');
+    // },
+    // user: async (parent, { username }) => {
+    //   return User.findOne({ username })
+    //     .select('-__v -password')
+    //     .populate('savedBooks')
+    // },
+    // // destructure usernames from array of users
+    // savedBooks: async (parent, { username }) => {
+    //   const params = username ? { username } : {};
+    //   // return book data in descending order
+    //   return Book.find(params).sort({ createdAt: -1 });
+    // },
+    // // destructure (unpack array values) book id 
+    // savedBook: async (parent, { _id }) => {
+    //   return Book.findOne({ _id });
+    // }
   },
 
   // perform POST request from GraphQL API

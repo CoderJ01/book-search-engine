@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import { Jumbotron, Container, Col, Form, Button, Card, CardColumns, ResponsiveEmbed } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
 import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 // import useMutation
-import { gql, useParams, useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 // import SAVE_BOOK
 import { SAVE_BOOK } from '../utils/mutations';
+
+import { useParams } from 'react-router-dom';
 
 const SearchBooks = () => {
   // create state for holding returned google api data
@@ -58,6 +60,15 @@ const SearchBooks = () => {
     }
   };
 
+  // declare id for parameter use
+  const { id: bookId } = useParams();
+
+   // use query with inported Hook functionality 
+  // enable book data to be queried
+  const [saveBook] = useMutation(SAVE_BOOK, {
+    variables: { id: bookId } 
+  });
+
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
@@ -72,20 +83,11 @@ const SearchBooks = () => {
 
     try {
       // saveBook will be replaced with SAVE_BOOK
-      // const response = await saveBook(bookToSave, token); <== starter code
-
-      // declare id for parameter use
-      const { id: bookId } = useParams();
-      
-      // use query with inported Hook functionality 
-      // enable book data to be queried
-      const { loading, data } = useMutation(SAVE_BOOK, {
-        variables: { id: bookId } 
-      });
+      const response = await saveBook(bookToSave, token);
 
       // get book data out of query's response
       // data.books needs to be accessed
-      const books = data?.books || [];
+      const books = response.data?.books || [];
       console.log(books);
 
       if (!response.ok) {
