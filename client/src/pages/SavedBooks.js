@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffec } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 // import useQuery
-import { gql, useQuery, useMutation, useParams } from '@apollo/client';
+import {useQuery, useMutation } from '@apollo/client';
 
 // import REMOVE_BOOK
 import { REMOVE_BOOK } from '../utils/mutations';
@@ -16,6 +17,7 @@ import { GET_ME } from '../utils/queries';
 
 const SavedBooks = () => {
   // const [userData, setUserData] = useState({}); <== starter code
+  const [removeBook] = useMutation(REMOVE_BOOK);
 
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
@@ -49,6 +51,9 @@ const SavedBooks = () => {
   // use object destructuring to extract `data` from the `useQuery` Hook's response and rename it `userData` to be more descriptive
   const { data: userData } = useQuery(GET_ME);
 
+        // declare id for parameter use
+        const { id: bookId } = useParams();
+
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const HandleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -59,27 +64,27 @@ const SavedBooks = () => {
 
     try {
       // delete deletebook function
-      // const response = await deleteBook(bookId, token);
-
-      // declare id for parameter use
-      const { id: bookId } = useParams();
+      // const response = await deleteBook(bookId, token); <== starter code
 
       // use query with inported Hook functionality 
       // enable book data to be queried
-      const { loading, data } = useMutation(REMOVE_BOOK, {
-        variables: {id: bookId }
-      });
+      // const = useMutation(REMOVE_BOOK, {
+      //   variables: {id: bookId }
+      // });
+      const {data} = removeBook({
+        variables: {bookId}
+      })
 
       // get book data out of query's response
       // data.books needs to be accessed
-      const books = data?.books || [];
-      console.log(books);
+      // const books = data?.books || [];
+      // console.log(books);
 
       if (!data) {
         throw new Error('something went wrong!');
       }
 
-      const updatedUser = await data.json();
+      // const updatedUser = await data.json();
       // setUserData(updatedUser); <== starter code
       // upon success, remove book's id from localStorage
       removeBookId(bookId);

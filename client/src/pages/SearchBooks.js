@@ -6,7 +6,7 @@ import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 // import useMutation
-import { gql, useMutation } from '@apollo/client';
+import { gql, useParams, useMutation } from '@apollo/client';
 
 // import SAVE_BOOK
 import { SAVE_BOOK } from '../utils/mutations';
