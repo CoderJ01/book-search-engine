@@ -1,6 +1,7 @@
 # Book Search Engine
 
-## Purpose 
+## Purpose
+This website is designed to allow users to to search for books. 
 
 ## Built With
     * React
