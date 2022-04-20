@@ -25,6 +25,10 @@ const SignupForm = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  // const [createUser] = useMutation(ADD_USER, {
+  //   variables: { id: userId }
+  // });
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -37,8 +41,8 @@ const SignupForm = () => {
 
     try {
       // DELETE createUser
-      // const response = await createUser(userFormData);
-
+      // const { data } = await createUser(userFormData);
+      // const response = await signUp();
       // // declare id for parameter use
       // const { id: userId } = useParams();
 
@@ -62,9 +66,9 @@ const SignupForm = () => {
 
       Auth.login(data.addUser.token);
 
-      if (!data) {
-        throw new Error('something went wrong!');
-      }
+      // if (!data) {
+      //   throw new Error('something went wrong!');
+      // }
 
       // const { token, user } = await response.json();
       // console.log(user);
